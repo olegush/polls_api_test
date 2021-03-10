@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from rest_framework import viewsets, mixins
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Question, Poll, Vote
@@ -23,16 +24,10 @@ class VoteViewSet(
     mixins.RetrieveModelMixin,
     GenericViewSet
 ):
-    queryset = Vote.objects.filter().order_by('-date')
     serializer_class = VoteSerializer
-    # allowed_methods = ['GET', 'POST']
 
-    # def get_queryset(self):
-    #     return Vote.objects.filter().order_by('-date')
-    #
-    # # def list(self, request, *args, **kwargs):
-    # #     return HttpResponse(content='')
-    #
-    # def create(self, request, *args, **kwargs):
-    #     return super().create(request, *args, **kwargs)
+    def retrieve(self, request, *args, **kwargs):
+        votes = Vote.objects.filter(user=kwargs['pk']).order_by('-date')
+        serializer = self.get_serializer(votes, many=True)
+        return Response({'data': serializer.data})
 

@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
@@ -37,7 +38,12 @@ class Answer(models.Model):
 
 
 class Vote(models.Model):
-    user = models.IntegerField()
+    user = models.PositiveBigIntegerField(
+        validators=[
+            MinValueValidator(1000000000000000000),
+            MaxValueValidator(9000000000000000000)
+        ]
+    )
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     vote_answers = models.ManyToManyField(
