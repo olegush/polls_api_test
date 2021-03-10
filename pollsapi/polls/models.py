@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Poll(models.Model):
     name = models.CharField(max_length=200)
-    date_begin = models.DateTimeField('begin date')
-    date_end = models.DateTimeField('end date')
+    date_begin = models.DateTimeField(default=timezone.now)
+    date_end = models.DateTimeField(default=timezone.now)
     description = models.TextField(max_length=3000)
 
     def __str__(self):
@@ -33,4 +34,4 @@ class Vote(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
-    date = models.DateTimeField('date polled')
+    date = models.DateTimeField(default=timezone.now)
