@@ -14,7 +14,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'text', 'answers']
+        fields = ['id', 'text', 'question_type', 'answers']
 
 
 class PollSerializer(serializers.ModelSerializer):
@@ -22,10 +22,15 @@ class PollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ['name', 'questions']
+        fields = ['name', 'date_begin', 'date_end', 'description', 'questions']
 
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = '__all__'
+
+    def validate(self, data):
+        if not (data['custom_answer'] or data['vote_answers']):
+            raise serializers.ValidationError("need an answer")
+        return data
