@@ -30,8 +30,12 @@ class Answer(models.Model):
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.IntegerField()
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    vote_answers = models.ManyToManyField(Answer, related_name='vote_answers')
     date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'user #{self.user} : {self.poll} : {self.question} : ' \
+               f'{self.vote_answers} : {self.date}'
