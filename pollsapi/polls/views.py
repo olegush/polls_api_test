@@ -9,9 +9,6 @@ from .serializers import PollSerializer, VoteSerializer, VoteCreateSerializer
 
 
 class PollViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = Poll.objects.filter(
         date_end__gt=datetime.now()
     ).order_by('-date_begin')
