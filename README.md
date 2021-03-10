@@ -11,9 +11,9 @@ pip install -r requirements.txt
 - Создайте базу данных Postgres, пользователя и выдайте ему права
 
 ```bash
-postgres=# CREATE DATABASE pollsapi;
-postgres=# CREATE USER pollsapiuser WITH PASSWORD 'pg12345';
-postgres=# GRANT ALL PRIVILEGES ON DATABASE "pollsapi" to pollsapiuser;
+postgres=# CREATE DATABASE DB_NAME;
+postgres=# CREATE USER DB_USER WITH PASSWORD 'PWD';
+postgres=# GRANT ALL PRIVILEGES ON DATABASE "DB_NAME" to DB_USER;
 ```
 
 - Переименуйте файл env.txt в .env и добавьте параметры подключения к Postgres
@@ -23,11 +23,12 @@ postgres=# GRANT ALL PRIVILEGES ON DATABASE "pollsapi" to pollsapiuser;
 python manage.py makemigrations
 python manage.py migrate
 ```
-## Функционал администратора
 - Создайте суперпользователя
 ```bash
 python manage.py createsuperuser
 ```
+## Функционал администратора
+
 - Запустите сервер
 ```bash
 python manage.py runserver
