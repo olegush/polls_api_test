@@ -1,40 +1,26 @@
 # polls_api_test
-## Установка
+## Запуск
 
-- Требуется Python 3.8 и библиотеки из requirements.txt. Лучше использовать виртуальное окружение.
-```bash
-python -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-```
-
-- Создайте базу данных Postgres, пользователя и выдайте ему права
+- Клонируйте репозиторий
 
 ```bash
-postgres=# CREATE DATABASE DB_NAME;
-postgres=# CREATE USER DB_USER WITH PASSWORD 'PWD';
-postgres=# GRANT ALL PRIVILEGES ON DATABASE "DB_NAME" to DB_USER;
+git clone https://github.com/olegush/polls_api_test.git
+cd polls_api_test
 ```
 
-- Переименуйте файл env.txt в .env и добавьте параметры подключения к Postgres
+- Переименуйте env.txt в .env
 
-- Примените миграции
+- Соберите и запустите проект
 ```bash
-python manage.py makemigrations
-python manage.py migrate
+docker-compose up --build
 ```
-- Создайте суперпользователя
-```bash
-python manage.py createsuperuser
-```
+
+- Откройте http://127.0.0.1:8000/admin с правами суперпользователя: admin/pwd12345
+
 ## Функционал администратора
 
-- Запустите сервер
-```bash
-python manage.py runserver
-```
-- Зайдите на http://127.0.0.1:8000/admin/ под созданным суперюзером
 - Добавьте [опросы](http://127.0.0.1:8000/admin/polls/poll/), [вопросы](http://127.0.0.1:8000/admin/polls/question/) и [ответы](http://127.0.0.1:8000/admin/polls/answer/) к ним.
+- Результаты опросов будут [здесь](http://127.0.0.1:8000/admin/polls/vote/)
 
 ## API для пользователей
 - Все активные опросы:
